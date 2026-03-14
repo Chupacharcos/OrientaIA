@@ -1,0 +1,15 @@
+[Unit]
+Description=OrientaIA FastAPI Service
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/var/www/orientaia
+EnvironmentFile=/var/www/orientaia/.env
+ExecStart=/var/www/chatbot/venv/bin/uvicorn api:app --host 127.0.0.1 --port 8097 --workers 1
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
