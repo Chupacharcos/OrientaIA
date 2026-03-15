@@ -49,8 +49,26 @@ Devuelve ÚNICAMENTE un JSON válido con esta estructura (sin markdown, sin expl
   "skills": ["lista de habilidades detectadas"],
   "avoid": ["cosas que quiere evitar en su trabajo"],
   "work_style": "presencial/remoto/híbrido/no importa",
-  "confidence": 0.0
-}}"""
+  "confidence": 0.0,
+  "riasec": {{
+    "R": 0,
+    "I": 0,
+    "A": 0,
+    "S": 0,
+    "E": 0,
+    "C": 0
+  }}
+}}
+
+Para el perfil RIASEC (Holland), asigna valores de 0 a 100 basándote en la conversación:
+- R (Realista): le gusta trabajar con objetos, máquinas, herramientas, actividades físicas o al aire libre
+- I (Investigador): le gusta investigar, analizar, resolver problemas intelectuales, ciencias
+- A (Artístico): le gusta crear, expresarse, arte, música, escritura, diseño, imaginación
+- S (Social): le gusta ayudar, enseñar, trabajar con personas, empatía, servicio
+- E (Emprendedor): le gusta liderar, persuadir, negociar, emprender, competir, vender
+- C (Convencional): le gusta organizar, seguir procedimientos, trabajar con datos, precisión
+
+Infiere los valores RIASEC de lo que dice el adolescente aunque no use esos términos exactos."""
 
 SIMULATOR_PROMPT = """Eres un narrador que describe un día laboral real en segunda persona para un adolescente que está explorando la carrera de {career_name}.
 
@@ -155,7 +173,7 @@ def extract_profile(session_id: str) -> dict:
     session["phase"] = "profile_ready"
 
     # Matching de carreras
-    careers = match_careers(profile, top_n=3)
+    careers = match_careers(profile, top_n=5)
     session["careers"] = careers
 
     return {"profile": profile, "careers": careers}
